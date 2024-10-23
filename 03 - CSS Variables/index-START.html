@@ -19,7 +19,7 @@
     <input id="base" type="color" name="base" value="#ffc600">
   </div>
 
-  <img src="https://unsplash.com/photos/Pykj32wYPjU/download?ixid=M3wxMjA3fDB8MXxhbGx8MTd8fHx8fHx8fDE3Mjk2Nzk0MjV8&force=true&w=640">
+  <img id="mainImage" src="https://unsplash.com/photos/Pykj32wYPjU/download?ixid=M3wxMjA3fDB8MXxhbGx8MTd8fHx8fHx8fDE3Mjk2Nzk0MjV8&force=true&w=640">
 
   <style>
 
@@ -43,9 +43,36 @@
     input {
       width: 100px;
     }
+
+    #mainImage {
+      padding: var(--spacing);
+      filter: blur(var(--blur));
+      background-color: var(--base);
+    }
+
+    .hl {
+      color: var(--base);
+    }
   </style>
 
   <script>
+    const spacingInput = document.getElementById('spacing')
+    const blurInput = document.getElementById('blur')
+    const baseColorInput = document.getElementById('base')
+
+    function updateMainImageStyle() {
+      document.documentElement.style.setProperty('--spacing', spacingInput.value + 'px')
+      document.documentElement.style.setProperty('--blur', blurInput.value + 'px')
+      document.documentElement.style.setProperty('--base', baseColorInput.value)
+    }
+
+    const controlsDiv = document.querySelector('.controls')
+
+    controlsDiv.addEventListener('input', (inputEvent) => {
+      updateMainImageStyle()
+    })
+
+    updateMainImageStyle()
   </script>
 
 </body>
