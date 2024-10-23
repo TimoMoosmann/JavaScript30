@@ -22,10 +22,11 @@
   <img id="mainImage" src="https://unsplash.com/photos/Pykj32wYPjU/download?ixid=M3wxMjA3fDB8MXxhbGx8MTd8fHx8fHx8fDE3Mjk2Nzk0MjV8&force=true&w=640">
 
   <style>
-
-    /*
-      misc styles, nothing to do with CSS variables
-    */
+    :root {
+      --spacing:10px;
+      --blur: 10px;
+      --base: #ffc600;
+    }
 
     body {
       text-align: center;
@@ -56,23 +57,15 @@
   </style>
 
   <script>
-    const spacingInput = document.getElementById('spacing')
-    const blurInput = document.getElementById('blur')
-    const baseColorInput = document.getElementById('base')
+    function updateCssVariable() {
+      const cssVariableName = '--' + this.name
+      const unit = this.dataset.sizing || ''
 
-    function updateMainImageStyle() {
-      document.documentElement.style.setProperty('--spacing', spacingInput.value + 'px')
-      document.documentElement.style.setProperty('--blur', blurInput.value + 'px')
-      document.documentElement.style.setProperty('--base', baseColorInput.value)
+      document.documentElement.style.setProperty(cssVariableName, this.value + unit)
     }
 
-    const controlsDiv = document.querySelector('.controls')
-
-    controlsDiv.addEventListener('input', (inputEvent) => {
-      updateMainImageStyle()
-    })
-
-    updateMainImageStyle()
+    const controls = document.querySelectorAll('.controls input')
+    controls.forEach((control) => control.addEventListener('input', updateCssVariable))
   </script>
 
 </body>
